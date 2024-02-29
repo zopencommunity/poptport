@@ -1,0 +1,35 @@
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 7763961..621b036 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -5,7 +5,7 @@ add_compile_definitions(POPT_SYSCONFDIR="${CMAKE_INSTALL_FULL_SYSCONFDIR}")
+ add_compile_definitions(PACKAGE="${PROJECT_NAME}")
+ 
+ # Setup library target
+-add_library(popt SHARED
++add_library(popt STATIC
+ 	popt.c
+ 	poptconfig.c
+ 	popthelp.c
+@@ -31,7 +31,7 @@ set_target_properties(popt PROPERTIES
+ 	C_STANDARD_REQUIRED ON
+ 	C_EXTENSIONS ON
+ 	PUBLIC_HEADER popt.h
+-	LINK_FLAGS "-Wl,--no-undefined -Wl,--version-script,\"${PROJECT_SOURCE_DIR}/src/libpopt.vers\""
++	LINK_FLAGS ""
+ )
+ 
+ # Install the library
+diff --git a/src/popt.c b/src/popt.c
+index 4759254..2013eda 100644
+--- a/src/popt.c
++++ b/src/popt.c
+@@ -18,7 +18,7 @@
+ 
+ #include "poptint.h"
+ 
+-#ifdef HAVE_STDALIGN_H
++#if defined(HAVE_STDALIGN_H) && !defined(__MVS__)
+ #include <stdalign.h>
+ #define ALIGNOF(x) alignof(x)
+ #elif defined __GNUC__
