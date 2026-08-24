@@ -6,6 +6,7 @@ export ZOPEN_STABLE_URL="https://github.com/rpm-software-management/popt.git"
 export ZOPEN_STABLE_DEPS="zoslib make cmake"
 export ZOPEN_BUILD_LINE="STABLE"
 export ZOPEN_CATEGORIES="development"
+export USE_CLANG_WRAPPER=1
 
 export ZOPEN_COMP="CLANG"
 
